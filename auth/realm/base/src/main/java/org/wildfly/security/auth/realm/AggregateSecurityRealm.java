@@ -35,6 +35,8 @@ import org.wildfly.security.authz.AuthorizationIdentity;
 import org.wildfly.security.credential.Credential;
 import org.wildfly.security.evidence.Evidence;
 
+import static org.wildfly.common.Assert.checkNotNullParam;
+
 /**
  * A realm which directs authentication to one realm and authorization to another.  The authentication realm need
  * not provide any authorization information.  Likewise the authorization realm need not provide any authentication
@@ -54,7 +56,7 @@ public final class AggregateSecurityRealm implements SecurityRealm {
      * @param authorizationRealm the realm to use for authorization
      */
     public AggregateSecurityRealm(final SecurityRealm authenticationRealm, final SecurityRealm authorizationRealm) {
-        this.authenticationRealm = authenticationRealm;
+        this.authenticationRealm = checkNotNullParam("authenticationRealm", authenticationRealm);
         this.authorizationRealms = new SecurityRealm[] { authorizationRealm };
         this.principalTransformer = null;
     }
